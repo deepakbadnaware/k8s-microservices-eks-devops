@@ -1,0 +1,28 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies (installed inside the image instead)
+node_modules
+__pycache__
+*.pyc
+.venv
+venv
+
+# Build output and logs
+dist
+build
+*.log
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+
+# Docker and editor files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+.vscode
+.idea
+.DS_Store
