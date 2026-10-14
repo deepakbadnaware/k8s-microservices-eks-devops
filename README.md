@@ -10,7 +10,7 @@
 
 A production-style deployment of a microservices application on **Amazon EKS**, with infrastructure provisioned using **Terraform**, automated **CI/CD with security scanning**, **autoscaling**, and **monitoring with Prometheus and Grafana**.
 
-> **Note:** The sample application is [Google Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) *(replace with your app, or state that you built it yourself)*. My work in this project is the infrastructure, Kubernetes configuration, CI/CD pipeline, security, and observability.
+
 
 ---
 
@@ -76,8 +76,8 @@ flowchart LR
 ├── app/                    # Microservices source code and Dockerfiles
 ├── terraform/              # VPC, EKS, ECR, IAM (Infrastructure as Code)
 ├── k8s/                    # Kubernetes manifests (or helm/ for Helm charts)
-│   ├── deployments/
-│   ├── services/
+│   ├── backend/
+│   ├── frontend/
 │   ├── ingress/
 │   ├── hpa/
 │   └── network-policies/
@@ -98,7 +98,7 @@ flowchart LR
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/k8s-microservices-eks-devops.git
+git clone https://github.com/deepakbadnaware/k8s-microservices-eks-devops.git
 cd k8s-microservices-eks-devops
 ```
 
@@ -218,7 +218,7 @@ cd terraform && terraform destroy
 **Deepak Badnaware**
 DevOps and Cloud Engineer | AWS, Kubernetes, Terraform, CI/CD
 
-[LinkedIn](https://www.linkedin.com/in/<your-profile>) | [GitHub](https://github.com/deepakbadnaware) | [Email](mailto:<your-email>)
+[LinkedIn](https://www.linkedin.com/in/deepakbadnaware) | [GitHub](https://github.com/deepakbadnaware) 
 
 ---
 
