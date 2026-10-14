@@ -1,0 +1,10 @@
+# Build with the name and tag
+docker build -t myorg/myapp-backend:1.0.0 ./backend
+docker build -t myorg/myapp-frontend:1.0.0 ./frontend
+
+# Log in
+docker login
+
+# Push
+docker push myorg/myapp-backend:1.0.0
+docker push myorg/myapp-frontend:1.0.0
