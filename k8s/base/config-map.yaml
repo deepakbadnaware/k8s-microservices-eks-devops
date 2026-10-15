@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: my-app
+data:
+  PORT: "3000"
+  MONGODB_URI: "mongodb://mongo:27017/wanderlust"
+  REDIS_URL: "redis://redis:6379"
+  FRONTEND_URL: "http://wanderlust.local"
+  ACCESS_COOKIE_MAXAGE: "120000"
+  ACCESS_TOKEN_EXPIRES_IN: "120s"
+  REFRESH_COOKIE_MAXAGE: "120000"
+  REFRESH_TOKEN_EXPIRES_IN: "120s"
+  NODE_ENV: "production"

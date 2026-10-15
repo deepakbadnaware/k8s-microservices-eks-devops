@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  namespace: my-app
   labels:
     app: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -16,6 +17,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: deepakbadnaware/myapp-frontend
+        image: deepakbadnaware/myapp-frontend:1.1.0
         ports:
-        - containerPort: 5173
+        - containerPort: 80
