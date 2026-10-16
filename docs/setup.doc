@@ -8,3 +8,10 @@ docker login
 # Push
 docker push myorg/myapp-backend:1.0.0
 docker push myorg/myapp-frontend:1.0.0
+
+
+
+minikube addons enable metrics-server
+kubectl top pods -n my-app
+
+

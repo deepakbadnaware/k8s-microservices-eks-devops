@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: my-app-alerts
+  namespace: my-app
+spec:
+  groups:
+    - name: my-app.rules
+      rules:
+        - alert: BackendDown
+          expr: kube_deployment_status_replicas_available{namespace="my-app",deployment="backend"} == 0
+          for: 1m
+          labels: { severity: critical }
+          annotations:
+            summary: "No backend pods are available"
+
+        - alert: PodRestartingOften
+          expr: increase(kube_pod_container_status_restarts_total{namespace="my-app"}[10m]) > 3
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "{{ $labels.pod }} is restarting repeatedly"
+
+        - alert: HighErrorRate
+          expr: |
+            sum(rate(http_request_duration_seconds_count{status_code=~"5.."}[5m]))
+              / sum(rate(http_request_duration_seconds_count[5m])) > 0.05
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "More than 5% of requests are failing"
+
+        - alert: BackendHighMemory
+          expr: |
+            sum(container_memory_working_set_bytes{namespace="my-app",container="backend"}) by (pod)
+              / sum(kube_pod_container_resource_limits{namespace="my-app",container="backend",resource="memory"}) by (pod) > 0.85
+          for: 5m
+          labels: { severity: warning }
+          annotations:
+            summary: "{{ $labels.pod }} is using over 85% of its memory limit"

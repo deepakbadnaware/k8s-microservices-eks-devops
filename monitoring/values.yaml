@@ -1,0 +1,29 @@
+grafana:
+  adminPassword: admin123          # local practice only, never commit a real password
+  persistence:
+    enabled: true
+    size: 2Gi
+
+prometheus:
+  prometheusSpec:
+    retention: 3d
+    # let Prometheus pick up ServiceMonitors, PodMonitors and rules from any namespace
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    resources:
+      requests: { cpu: 200m, memory: 512Mi }
+      limits:   { memory: 1Gi }
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+
+# Minikube's control plane components bind to localhost, so these targets always show DOWN
+kubeEtcd:              { enabled: false }
+kubeScheduler:         { enabled: false }
+kubeControllerManager: { enabled: false }
+kubeProxy:             { enabled: false }

@@ -12,11 +12,13 @@ services:
       - "6379:6379"
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     env_file:
-      - backend/.env
+      - ./backend/.env
     depends_on:
       - mongo
       - redis
@@ -24,9 +26,9 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "5173:5173"
+      - "5173:80"
     environment:
-      - VITE_API_PATH=http://localhost:3000
+      - BACKEND_URL=http://backend:3000
     depends_on:
       - backend
 

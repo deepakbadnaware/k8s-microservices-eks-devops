@@ -5,6 +5,11 @@ metadata:
   namespace: my-app
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: backend
@@ -15,9 +20,28 @@ spec:
     spec:
       containers:
         - name: backend
-          image: deepakbadnaware/myapp-backend:1.0.0
+          image: deepakbadnaware/myapp-backend:1.2.1
           ports:
             - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           envFrom:
             - configMapRef:
                 name: backend-config
